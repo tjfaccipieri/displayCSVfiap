@@ -15,14 +15,14 @@ def display_file():
 
   # Tentar ler o arquivo em diferentes codificações possiveis
   try:
-    df = pd.read_csv(file, delimiter=";")
+    df = pd.read_csv(file, delimiter=",")
   except UnicodeDecodeError:
     file.seek(0) #resetar o ponteiro do arquivo caso não desa decodificação padrão
     try:
-      df = pd.read_csv(file, encoding='latin1', delimiter=";")
+      df = pd.read_csv(file, encoding='latin1', delimiter=",")
     except UnicodeDecodeError:
       file.seek(0) #reseta denovo se não foi latin1
-      df = pd.read_csv(file, encoding='ISO-8859-1', delimiter=";")
+      df = pd.read_csv(file, encoding='ISO-8859-1', delimiter=",")
 
   return render_template('display.html', tables=[df.to_html(classes='data')], titles=df.columns.values)
 
